@@ -8,8 +8,8 @@ class Autor(models.Model):
 
     class Meta:
         ordering = ['nome']
-        verbose_name = 'Autor',
-        verbose_plural = 'Autores'
+        verbose_name = 'Autor'
+        verbose_name_plural = 'Autores'
     
     def __str__(self):
         return self.nome
@@ -28,8 +28,8 @@ class Livro(models.Model):
 
     class Meta:
         ordering = ['titulo']
-        verbose_name = ['Livro']
-        verbose_plural = ['Livros']
+        verbose_name = 'Livro'
+        verbose_name_plural = 'Livros'
 
     def __str__(self):
         return self.titulo
