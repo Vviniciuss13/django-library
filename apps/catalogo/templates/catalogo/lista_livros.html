@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Catálogo de Livros{% endblock %}
+
+{% block content %}
+  <h1>Catálogo de Livros</h1>
+
+  {% if livros %}
+    <ul>
+      {% for livro in livros %}
+        <li>
+          <a href="{% url 'catalogo:detalhe_livro' livro.id %}">
+            {{ livro.titulo }}
+          </a>
+          - {{ livro.autor.nome }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Nenhum livro cadastrado ainda</p>
+  {% endif %}
+{% endblock %}
+
+  
