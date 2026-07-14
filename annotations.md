@@ -232,4 +232,10 @@ models.ImageField(upload_to='capas_livros/', blank=True, null=True)
 
 - Form need to be enctype multipart/form-data
 
+- In view pass in form class the request files
+
+```python
+form = LivroForm(request.POST, request.FILES)
+```
+
 Obs: It's not recommend use urls.py to show files, it's slow, use nginx for example

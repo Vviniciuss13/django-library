@@ -23,7 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalogo/', include('catalogo.urls')),
     path('usuarios/', include('usuarios.urls')),
-    path('emprestimos/', include('emprestimos.urls'))
+    path('emprestimos/', include('emprestimos.urls')),
+
+    path('api/catalogo/', include('catalogo.api_urls'))
 ]
 
 if settings.DEBUG:
