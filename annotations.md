@@ -195,3 +195,41 @@ class Usuario(AbstractUser):
 ```
 
 ## Decorators
+
+There are some decorators that you can use to restrict access to views, like @login_required and @permission_required. You can also create your own decorators to restrict access based on user type.
+
+```python
+def bibliotecario_required(view_func):
+  """
+  Permite o acesso à view apenas para usuários com o tipo 'bibliotecario'.
+  Usuários não logados são redirecionados para o login (via login_required).
+  Usuários logados mas sem permissão recebem 403 Forbidden.
+  """
+  @login_required
+  @wraps(view_func)
+  def wrapper(request, *args, **kwargs):
+    if request.user.tipo != 'bibliotecario':
+      raise PermissionDenied
+    return view_func(request, *args, **kwargs)
+  return wrapper
+```
+
+## Images and Files
+
+- Use the libary Pillow to check the images
+- Configure the settings.py
+
+```python
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+```
+
+- In model:
+
+```python
+models.ImageField(upload_to='capas_livros/', blank=True, null=True) 
+```
+
+- Form need to be enctype multipart/form-data
+
+Obs: It's not recommend use urls.py to show files, it's slow, use nginx for example

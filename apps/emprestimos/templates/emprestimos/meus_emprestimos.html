@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Meus Empréstimos{% endblock title %}
+
+{% block content %}
+  <h1>Meus Empréstimos</h1>
+
+    {% if emprestimos %}
+        <ul>
+        {% for emprestimo in emprestimos %}
+            <li>
+                {{ emprestimo.livro.titulo }} —
+                Retirado em {{ emprestimo.data_retirada|date:"d/m/Y" }} —
+                Status: {{ emprestimo.get_status_display }}
+
+                {% if emprestimo.status == 'ativo' %}
+                  <a href="{% url 'emprestimos:devolver_emprestimo' emprestimo.id %}">Devolver</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você ainda não fez nenhum empréstimo.</p>
+    {% endif %}
+{% endblock content %}

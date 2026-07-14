@@ -25,6 +25,7 @@ class Livro(models.Model):
     ano_publicacao = models.IntegerField()
     disponivel = models.BooleanField(default=True)
     criado_em = models.DateTimeField(auto_now_add=True)
+    capa = models.ImageField(upload_to='capas_livros/', blank=True, null=True)
 
     class Meta:
         ordering = ['titulo']

@@ -19,7 +19,7 @@ def detalhe_livro(request, livro_id):
 def cadastrar_livro(request):
     """Exibe e processa o formulário de cadastro de um novo livro"""
     if request.method == 'POST':
-        form = LivroForm(request.POST)
+        form = LivroForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('catalogo:lista_livros')
@@ -34,7 +34,7 @@ def editar_livro(request, livro_id):
     livro = get_object_or_404(Livro, pk=livro_id)
 
     if request.method == 'POST':
-        form = LivroForm(request.POST, instance=livro)
+        form = LivroForm(request.POST, request.FILES, instance=livro)
         if form.is_valid():
             form.save()
             return redirect('catalogo:detalhe_livro', livro_id=livro.id)

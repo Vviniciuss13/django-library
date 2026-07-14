@@ -7,7 +7,14 @@
   <p>Autor: {{ livro.autor.nome }}</p>
   <p>Ano de Publicação: {{ livro.ano_publicacao }}</p>
   <p>Disponível: {% if livro.disponivel %}Sim{% else %}Não{% endif %}</p>
+
+  {% if livro.capa %}
+    <img src="{{ livro.capa.url }}" alt="Capa de {{ livro.titulo }}" style="max-width: 200px;">
+  {% endif %}
   
+  {% if user.is_authenticated %}
+    <a href="{% url 'emprestimos:solicitar_emprestimo' livro.id %}">Solicitar Empréstimo</a>
+  {% endif %}
   <a href="{% url 'catalogo:editar_livro' livro.id %}">Editar</a>
   <a href="{% url 'catalogo:deletar_livro' livro.id %}">Excluir</a>
   <a href="{% url 'catalogo:lista_livros' %}">Voltar ao catálogo</a>

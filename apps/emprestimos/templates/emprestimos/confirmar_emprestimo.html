@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Solicitar Empréstimo{% endblock title %}
+
+{% block content %}
+  <h1>Confirmar Empréstimo</h1>
+  <p>Deseja solicitar o empréstimo de <strong>{{ livro.titulo }}</strong>?</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar</button>
+  </form>
+
+  <a href="{% url 'catalogo:detalhe_livro' livro.id %}">Cancelar</a>
+{% endblock content %}
