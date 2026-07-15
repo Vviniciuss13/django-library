@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from usuarios.decorators import bibliotecario_required
 from django.utils.decorators import method_decorator
+
+from usuarios.decorators import bibliotecario_required
+from usuarios.permissions import IsBibliotecarioOrReadOnly
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -68,7 +70,7 @@ class LivroListView(ListView):
     model = Livro
     template_name = 'catalogo/lista_livros.html'
     context_object_name = 'livros'
-@method_decorator(bibliotecario_required, name='dispatch')
+
 class LivroDetailView(DetailView):
     model = Livro
     template_name = 'catalogo/detalhe_livro.html'
@@ -82,6 +84,7 @@ class LivroCreateView(CreateView):
     template_name = 'catalogo/cadastrar_livro.html'
     success_url = reverse_lazy('catalogo:lista_livros')
 
+@method_decorator(bibliotecario_required, name='dispatch')
 class LivroUpdateView(UpdateView):
     model = Livro
     form_class = LivroForm
@@ -104,4 +107,4 @@ class LivroDeleteView(DeleteView):
 class LivroViewSet(viewsets.ModelViewSet):
     queryset = Livro.objects.all()
     serializer_class = LivroSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsBibliotecarioOrReadOnly]

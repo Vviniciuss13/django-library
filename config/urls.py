@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+#from rest_framework.authtoken.views import obtain_auth_token
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +28,10 @@ urlpatterns = [
     path('usuarios/', include('usuarios.urls')),
     path('emprestimos/', include('emprestimos.urls')),
 
-    path('api/catalogo/', include('catalogo.api_urls'))
+    path('api/catalogo/', include('catalogo.api_urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    #path('api/token/', obtain_auth_token, name='api_token'),
 ]
 
 if settings.DEBUG:

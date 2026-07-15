@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     #TERCEIRO APPS
     'rest_framework',
+    'rest_framework.authtoken',
 
     #APPS
     'catalogo',
@@ -140,3 +141,15 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_REDIRECT_URL = 'catalogo:lista_livros'
 LOGOUT_REDIRECT_URL = 'catalogo:lista_livros'
 LOGIN_URL = 'usuarios:login'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
+if 'test' in sys.argv:
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    ]
